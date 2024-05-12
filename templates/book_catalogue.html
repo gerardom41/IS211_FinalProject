@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Catalogue</title>
+</head>
+<body>
+    <h1>Welcome to the Book Catalogue!</h1>
+    <form method="POST" action="/book/add">
+        <label for="book_isbn">Book ISBN: </label>
+        <input type="number" name="book_isbn" required>
+        <input type="submit" value="Look for book">
+    </form>
+    <form method="POST" action="/book/delete">
+        <label for="delete_book">Book Title:</label>
+        <select name="delete_book" required>
+            {% for book_title in books %}
+                <option value="{{ book_title[1] }}">{{ book_title[1] }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Delete Book">
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <table>
+        <tr>
+            <th>Book Title</th>
+            <th>Book Author</th>
+            <th>Page Count</th>
+            <th>Book Rating</th>
+        </tr>
+        {% for item in books %}
+        <tr>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
